@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Love 💕</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 25%, #fde68a 50%, #fcd34d 75%, #fef3c7 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .screen {
+            display: none;
+            width: 100%;
+            max-width: 500px;
+            animation: fadeIn 0.6s ease;
+        }
+
+        .screen.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .greeting-screen {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 60px 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+        }
+
+        .greeting-title {
+            font-size: 2.5rem;
+            font-weight: 300;
+            color: #d97706;
+            margin-bottom: 30px;
+            letter-spacing: 1px;
+        }
+
+        .greeting-message {
+            font-size: 1.3rem;
+            color: #6b7280;
+            line-height: 1.8;
+            margin-bottom: 50px;
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 300;
+        }
+
+        .enter-button {
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 50%, #d97706 100%);
+            color: white;
+            border: none;
+            padding: 18px 60px;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(217, 119, 6, 0.3);
+            font-weight: 500;
+            letter-spacing: 1px;
+        }
+
+        .enter-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(217, 119, 6, 0.4);
+        }
+
+        .categories-screen {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+        }
+
+        .categories-title {
+            text-align: center;
+            font-size: 2rem;
+            font-weight: 300;
+            color: #d97706;
+            margin-bottom: 40px;
+            letter-spacing: 1px;
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .category-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            border: 2px solid transparent;
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            border-color: #fbbf24;
+        }
+
+        .category-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .category-name {
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: #4b5563;
+        }
+
+        .player-screen {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 50px 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .player-category {
+            font-size: 1.5rem;
+            color: #d97706;
+            margin-bottom: 40px;
+            font-weight: 300;
+        }
+
+        .player-icon {
+            font-size: 5rem;
+            margin-bottom: 40px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .player-status {
+            font-size: 1.2rem;
+            color: #6b7280;
+            margin-bottom: 50px;
+            min-height: 30px;
+        }
+
+        .player-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .button {
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 50%, #d97706 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(217, 119, 6, 0.3);
+            font-weight: 500;
+        }
+
+        .button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(217, 119, 6, 0.4);
+        }
+
+        .button-secondary {
+            background: linear-gradient(135deg, #9ca3af 0%, #6b7280 100%);
+        }
+
+        @media (max-width: 480px) {
+            .greeting-title {
+                font-size: 2rem;
+            }
+
+            .greeting-message {
+                font-size: 1.1rem;
+            }
+
+            .categories-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .categories-screen {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Greeting Screen -->
+    <div class="screen active" id="greetingScreen">
+        <div class="greeting-screen">
+            <h1 class="greeting-title">Hello Beautiful 💕</h1>
+            <p class="greeting-message" id="greetingMessage"></p>
+            <button class="enter-button" onclick="showCategories()">Enter ✨</button>
+        </div>
+    </div>
+
+    <!-- Categories Screen -->
+    <div class="screen" id="categoriesScreen">
+        <div class="categories-screen">
+            <h2 class="categories-title">Choose Your Message 💝</h2>
+            <div class="categories-grid">
+                <div class="category-card" onclick="playCategory('hype')">
+                    <div class="category-icon">💪</div>
+                    <div class="category-name">Hype MonsterManny up</div>
+                </div>
+                <div class="category-card" onclick="playCategory('hug')">
+                    <div class="category-icon">🤗</div>
+                    <div class="category-name">I need a hug</div>
+                </div>
+                <div class="category-card" onclick="playCategory('jokes')">
+                    <div class="category-icon">😄</div>
+                    <div class="category-name">Ujjal Dad-ar Jokes</div>
+                </div>
+                <div class="category-card" onclick="playCategory('kidda')">
+                    <div class="category-icon">💖</div>
+                    <div class="category-name">Kidda(n) lovely dovely</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Player Screen -->
+    <div class="screen" id="playerScreen">
+        <div class="player-screen">
+            <div class="player-category" id="playerCategory"></div>
+            <div class="player-icon" id="playerIcon"></div>
+            <div class="player-status" id="playerStatus">Click play to hear your message</div>
+            <audio id="audioPlayer" onended="onAudioEnded()"></audio>
+            <div class="player-buttons">
+                <button class="button" onclick="playRandomMessage()">Play Message 🎵</button>
+                <button class="button button-secondary" onclick="showCategories()">Back</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Greeting messages that rotate on the welcome screen
+        const greetingMessages = [
+            "You make every day brighter just by being you",
+            "I'm so grateful to have you in my life",
+            "You are my favorite person in the entire world",
+            "Your smile is my favorite thing to see",
+            "I love you more than words can express",
+            "You are beautiful, inside and out",
+            "Thank you for being my everything",
+            "You make my heart so happy",
+            "I'm the luckiest person because I have you",
+            "You are my sunshine on cloudy days",
+            "Every moment with you is a treasure",
+            "You are more amazing than you know"
+        ];
+
+        // Audio files configuration - YOUR ACTUAL FILES
+        const audioFiles = {
+            hype: [
+                'audio/hype-monstermanny-up/hype1.m4a'
+            ],
+            hug: [
+                'audio/i-need-a-hug/hug1.m4a'
+            ],
+            jokes: [
+                'audio/ujjal-dad-ar-jokes/joke1.m4a',
+                'audio/ujjal-dad-ar-jokes/joke2.m4a',
+                'audio/ujjal-dad-ar-jokes/joke3.m4a'
+            ],
+            kidda: [
+                'audio/kidda-lovely-dovely/kld1.m4a',
+                'audio/kidda-lovely-dovely/kld2.m4a'
+            ]
+        };
+
+        const categoryIcons = {
+            hype: '💪',
+            hug: '🤗',
+            jokes: '😄',
+            kidda: '💖'
+        };
+
+        const categoryNames = {
+            hype: 'Hype MonsterManny up',
+            hug: 'I need a hug',
+            jokes: 'Ujjal Dad-ar Jokes',
+            kidda: 'Kidda(n) lovely dovely'
+        };
+
+        let currentCategory = '';
+        let playedMessages = {};
+
+        // Initialize played messages tracking
+        function initPlayedMessages() {
+            const stored = localStorage.getItem('playedMessages');
+            if (stored) {
+                playedMessages = JSON.parse(stored);
+            } else {
+                // Initialize empty arrays for each category
+                for (let category in audioFiles) {
+                    playedMessages[category] = [];
+                }
+            }
+        }
+
+        // Save played messages to localStorage
+        function savePlayedMessages() {
+            localStorage.setItem('playedMessages', JSON.stringify(playedMessages));
+        }
+
+        // Get random greeting message
+        function getRandomGreeting() {
+            const randomIndex = Math.floor(Math.random() * greetingMessages.length);
+            return greetingMessages[randomIndex];
+        }
+
+        // Show greeting screen with random message
+        function showGreeting() {
+            document.getElementById('greetingMessage').textContent = getRandomGreeting();
+        }
+
+        // Show categories screen
+        function showCategories() {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.getElementById('categoriesScreen').classList.add('active');
+        }
+
+        // Play a category
+        function playCategory(category) {
+            currentCategory = category;
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.getElementById('playerScreen').classList.add('active');
+
+            document.getElementById('playerCategory').textContent = categoryNames[category];
+            document.getElementById('playerIcon').textContent = categoryIcons[category];
+            document.getElementById('playerStatus').textContent = 'Click play to hear your message';
+
+            // Auto-play first message
+            setTimeout(() => playRandomMessage(), 300);
+        }
+
+        // Get random unplayed message
+        function getRandomMessage(category) {
+            const allMessages = audioFiles[category];
+            const played = playedMessages[category] || [];
+
+            // If all messages have been played, reset the played list
+            if (played.length >= allMessages.length) {
+                playedMessages[category] = [];
+                savePlayedMessages();
+            }
+
+            // Get unplayed messages
+            const unplayed = allMessages.filter(msg => !playedMessages[category].includes(msg));
+
+            // Pick random from unplayed
+            const randomIndex = Math.floor(Math.random() * unplayed.length);
+            const selectedMessage = unplayed[randomIndex];
+
+            // Mark as played
+            playedMessages[category].push(selectedMessage);
+            savePlayedMessages();
+
+            return selectedMessage;
+        }
+
+        // Play random message from current category
+        function playRandomMessage() {
+            const audioPlayer = document.getElementById('audioPlayer');
+            const statusEl = document.getElementById('playerStatus');
+
+            const messageFile = getRandomMessage(currentCategory);
+            console.log('Attempting to play:', messageFile);
+            audioPlayer.src = messageFile;
+
+            statusEl.textContent = 'Playing your message... 🎵';
+
+            audioPlayer.play().catch(error => {
+                console.error('Playback error:', error);
+                console.error('File path attempted:', messageFile);
+                statusEl.textContent = 'Error: Could not play "' + messageFile + '". Check console (F12) for details.';
+            });
+        }
+
+        // Add error event listener to audio player
+        document.addEventListener('DOMContentLoaded', function() {
+            const audioPlayer = document.getElementById('audioPlayer');
+            audioPlayer.addEventListener('error', function(e) {
+                console.error('Audio loading error:', e);
+                console.error('Failed to load:', audioPlayer.src);
+                console.error('Error code:', audioPlayer.error ? audioPlayer.error.code : 'unknown');
+                document.getElementById('playerStatus').textContent = 'File not found: "' + audioPlayer.src + '". Check file name and location.';
+            });
+        });
+
+        // When audio ends
+        function onAudioEnded() {
+            document.getElementById('playerStatus').textContent = 'Message complete! Play another?';
+        }
+
+        // Initialize on page load
+        window.onload = function() {
+            initPlayedMessages();
+            showGreeting();
+        };
+    </script>
+</body>
+</html>
